@@ -1,0 +1,32 @@
+{
+  "name": "git-fancy-status",
+  "version": "1.0.0",
+  "description": "Get more information about your git repository.",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "node index.js"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "gs": "./bin/git-status"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zhabinsky/git-fancy-status.git"
+  },
+  "keywords": [
+    "git",
+    "status",
+    "bash",
+    "cli"
+  ],
+  "author": "Vladislav Zhabinsky <vladislavzhabinsky@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhabinsky/git-fancy-status/issues"
+  },
+  "homepage": "https://github.com/zhabinsky/git-fancy-status#readme",
+  "devDependencies": {
+    "bash-minifier": "^0.1.3"
+  }
+}
