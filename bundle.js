@@ -7,4 +7,4 @@ const script = fs.readFileSync ('src/git-status.sh', {encoding: 'utf8'});
 const uglified = uglify (script);
 const minified = minify (uglified);
 
-fs.writeFileSync ('bin/git-status.sh', minified);
+fs.writeFileSync ('bin/git-status', `#!/usr/bin/env bash\n${minified}`);

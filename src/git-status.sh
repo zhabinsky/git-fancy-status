@@ -69,7 +69,7 @@ git_fancy_status() {
 
 		local status=$(git s --short)
 		status=${status:-"${SPACE}🐒   no-changes"}
-		echo "👌  Status... \n\n$(chlk $BLUE "$status")\n"
+		printf "👌  Status... \n\n$(chlk $BLUE "$status")\n"
 	else
 		echo "⭕  Error           : $(chlk $RED "No .git repo found.")"
 		say_path

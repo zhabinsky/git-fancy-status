@@ -1,10 +1,10 @@
 {
   "name": "git-fancy-status",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Get more information about your git repository.",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
-    "prepublish": "node index.js"
+    "prepublish": "node bundle.js"
   },
   "preferGlobal": true,
   "bin": {
