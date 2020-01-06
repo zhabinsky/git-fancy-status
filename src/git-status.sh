@@ -57,16 +57,18 @@ git_fancy_status() {
 		branch=$(printf "${GREEN}$(git branch | grep -e "*" | cut -c 3-)${RESET}")
 		repo_name=$(basename -s .git $(git config --get remote.origin.url))
 		say_path
-		local first_commit=$(git log --reverse | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
 
-		local commit_my_first=$(git log --reverse | grep "Vladislav" --a=1 | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
-		local commit_my_last=$(git log | grep "Vladislav" --a=1 | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
+		local repository_creator=$(git log --all --max-parents=0 --pretty=format:"%an %ae")
+		local git_reverse_log=$(git log --reverse);
+		local first_commit=$(echo "$git_reverse_log" | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
+		local commit_my_first=$(echo "$git_reverse_log"  | grep "${username}" --a=1 | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
+		local commit_my_last=$(git log | grep "${username}" --a=1 | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
 
 		echo "🏠  Repository            : ${GREEN}${repo_name} ${RESET}(Contributors: ${BLUE}$(git shortlog --summary | wc -l | xargs)${RESET})"
-		echo "📌  Commit init           :${GREEN} ${first_commit}${RESET}"
-		echo "📌  Commit mine (first)   :${GREEN} ${commit_my_first}${RESET}"
-		echo "📌  Commit last (last)    :${GREEN} ${commit_my_last}${RESET}"
-		echo "🐒  User                  : ${GREEN}<${user_email}>${RESET} (${username})"
+		echo "📌  Commit init           : ${GREEN}${first_commit} ${BLUE}${repository_creator}${RESET}"
+		echo "📌  Commit mine (first)   : ${GREEN}${commit_my_first} ${BLUE}${username}${RESET}"
+		echo "📌  Commit mine (last)    : ${GREEN}${commit_my_last} ${BLUE}${username}${RESET}"
+		echo "🐒  User                  : ${GREEN}<${user_email}> ${BLUE}(${username})${RESET}"
 
 		log_commits "🔥  Commits (Merge) " "--merges"
 		log_commits "🔥  Commits         " "--no-merges"
