@@ -60,14 +60,15 @@ git_fancy_status() {
 
 		local repository_creator=$(git log --all --max-parents=0 --pretty=format:"%an %ae")
 		local git_reverse_log=$(git log --reverse);
-		local first_commit=$(echo "$git_reverse_log" | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
+		# local first_commit=$(echo "$git_reverse_log" | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
 		local commit_my_first=$(echo "$git_reverse_log"  | grep "${username}" --a=1 | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
 		local commit_my_last=$(git log | grep "${username}" --a=1 | grep -e "^Date:  " | head -n 1 | cut -c 6- | xargs)
+		local no_commit_message=$(echo "${RED}No-commit${RESET}")
 
 		echo "🏠  Repository            : ${GREEN}${repo_name} ${RESET}(Contributors: ${BLUE}$(git shortlog --summary | wc -l | xargs)${RESET})"
-		echo "📌  Commit init           : ${GREEN}${first_commit} ${BLUE}${repository_creator}${RESET}"
-		echo "📌  Commit mine (first)   : ${GREEN}${commit_my_first} ${BLUE}${username}${RESET}"
-		echo "📌  Commit mine (last)    : ${GREEN}${commit_my_last} ${BLUE}${username}${RESET}"
+		echo "📌  Commit init           : ${GREEN}${first_commit:-$no_commit_message} ${BLUE}${repository_creator}${RESET}"
+		echo "📌  Commit mine (first)   : ${GREEN}${commit_my_first:-$no_commit_message} ${BLUE}${username}${RESET}"
+		echo "📌  Commit mine (last)    : ${GREEN}${commit_my_last:-$no_commit_message} ${BLUE}${username}${RESET}"
 		echo "🐒  User                  : ${GREEN}<${user_email}> ${BLUE}(${username})${RESET}"
 
 		log_commits "🔥  Commits (Merge) " "--merges"
