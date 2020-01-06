@@ -1,6 +1,6 @@
 {
   "name": "git-fancy-status",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Get more information about your git repository.",
   "main": "bundle.js",
   "scripts": {
