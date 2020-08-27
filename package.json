@@ -4,6 +4,7 @@
   "description": "Get more information about your git repository.",
   "main": "bundle.js",
   "scripts": {
+    "bundle": "node bundle.js",
     "prepublish": "node bundle.js",
     "dev": "nodemon bundle.js"
   },

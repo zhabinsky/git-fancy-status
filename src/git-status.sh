@@ -77,9 +77,9 @@ git_fancy_status() {
 		echo "📌  Branch                : ${branch} (Total: ${BLUE}$(git branch -a | wc -l | xargs))${RESET}"
 		echo "🛳️   HEAD is:              : ${BLUE}$(git log origin/master..HEAD | grep "^Author:" | wc -l | xargs)${RESET} Commits away from${GREEN} origin/master${RESET}"
 
-		local status=$(git status --short)
+		local statusss=$(git status --short)
 		status=${status:-"${SPACE}🐒   no-changes"}
-		printf "👌  Status... \n\n$(chlk $BLUE "$status")\n"
+		printf "👌  Status... \n\n$(chlk $BLUE "$statusss")\n"
 	else
 		echo "⭕  Error                 : $(chlk $RED "No .git repo found.")"
 		say_path
