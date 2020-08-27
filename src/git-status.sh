@@ -75,9 +75,9 @@ git_fancy_status() {
 		log_commits "🔥  Commits         " "--no-merges"
 
 		echo "📌  Branch                : ${branch} (Total: ${BLUE}$(git branch -a | wc -l | xargs))${RESET}"
-		echo "🛳️  HEAD is:              : ${BLUE}$(git log origin/master..HEAD | grep "^Author:" | wc -l | xargs)${RESET} Commits away from${GREEN} origin/master${RESET}"
+		echo "🛳️   HEAD is:              : ${BLUE}$(git log origin/master..HEAD | grep "^Author:" | wc -l | xargs)${RESET} Commits away from${GREEN} origin/master${RESET}"
 
-		local status=$(git s --short)
+		local status=$(git status --short)
 		status=${status:-"${SPACE}🐒   no-changes"}
 		printf "👌  Status... \n\n$(chlk $BLUE "$status")\n"
 	else
