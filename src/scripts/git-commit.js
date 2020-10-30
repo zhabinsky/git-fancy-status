@@ -59,15 +59,23 @@ const getEmojiFromText = (text = "") => {
   const words = text.toLowerCase().split(" ");
   for (let i = 0; i < words.length; i++) {
     const word = words[i];
+
     const emoji = wordToEmojiMap[word];
+    if (emoji) return emoji;
+
+    const emojiCurrent = wordToEmojiMap[word + "s"];
+    if (emojiCurrent) return emojiCurrent;
+
+    const emojiCurrent2 = wordToEmojiMap[word + "es"];
+    if (emojiCurrent2) return emojiCurrent2;
+
     const emojiPast = wordToEmojiMap[word + "ed"];
-    if (emoji) {
-      return emoji + "  ";
-    }
-    if (emojiPast) {
-      return emojiPast + "  ";
-    }
+    if (emojiPast) return emojiPast;
+
+    const emojiPast2 = wordToEmojiMap[word + "d"];
+    if (emojiPast2) return emojiPast2;
   }
+
   return "";
 };
 
