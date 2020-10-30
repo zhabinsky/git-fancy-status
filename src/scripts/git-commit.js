@@ -22,6 +22,9 @@ const getTicketNameFromText = (text) => {
 
 const wordToEmojiMap = {
   add: "💪",
+  added: "💪",
+  include: "💪",
+  included: "💪",
   introduce: "💪",
   alert: "🛎",
   attach: "🖇",
