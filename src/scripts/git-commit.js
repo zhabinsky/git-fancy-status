@@ -71,6 +71,4 @@ const emoji = getEmojiFromText(message);
 const ticket = getTicketNameFromText(branch);
 const commitMessage = `${ticket}${emoji}${message}`.replace(/"/g, '\\"');
 
-console.log(commitMessage);
-
 run(`git commit -m "${commitMessage}"`);
