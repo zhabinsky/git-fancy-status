@@ -6,7 +6,7 @@ if (!shell.which("git")) {
   shell.exit(1);
 }
 
-const branch = run("git branch");
+const branch = run("git branch --show-current");
 
 const jira_matcher = /\d+-[A-Z]+(?!-?[a-zA-Z]{1,10})/g;
 const getTicketNameFromText = (text) => {
@@ -53,6 +53,11 @@ const wordToEmojiMap = {
   test: "🥽",
   update: "👌",
   use: "🤝",
+  deliver: "🤝",
+  release: "🎂",
+  bring: "👌",
+  return: "🧬",
+  revert: "🧬",
 };
 
 const getEmojiFromText = (text = "") => {
@@ -79,3 +84,5 @@ const ticket = getTicketNameFromText(branch);
 const commitMessage = `${ticket}${emoji}${message}`.replace(/"/g, '\\"');
 
 run(`git commit -m "${commitMessage}"`);
+
+// console.log(commitMessage);
