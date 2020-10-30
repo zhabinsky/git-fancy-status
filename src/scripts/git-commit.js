@@ -10,9 +10,13 @@ const branch = run("git branch");
 
 const jira_matcher = /\d+-[A-Z]+(?!-?[a-zA-Z]{1,10})/g;
 const getTicketNameFromText = (text) => {
-  const reverse = (a) => [...a].reverse().join("");
-  const tickets = reverse(text).match(jira_matcher).map(reverse);
-  if (tickets.length === 0) return "";
+  const reverse = (a = "") => [...a].reverse().join("");
+  const matches = reverse(text).match(jira_matcher) || [];
+  if (matches.length === 0) {
+    return "";
+  }
+
+  const tickets = matches.map(reverse);
   return tickets[0] + ": ";
 };
 
@@ -66,5 +70,7 @@ const message = process.argv.splice(2).join(" ");
 const emoji = getEmojiFromText(message);
 const ticket = getTicketNameFromText(branch);
 const commitMessage = `${ticket}${emoji}${message}`.replace(/"/g, '\\"');
+
+console.log(commitMessage);
 
 run(`git commit -m "${commitMessage}"`);

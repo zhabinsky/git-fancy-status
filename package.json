@@ -11,7 +11,9 @@
   "preferGlobal": true,
   "bin": {
     "gs": "./bin/git-status",
-    "gc": "./bin/git-commit"
+    "git-fancy-status": "./bin/git-status",
+    "gc": "./bin/git-commit",
+    "git-fancy-commit": "./bin/git-commit"
   },
   "repository": {
     "type": "git",
