@@ -13,5 +13,5 @@ processFile({
 processFile({
   fileIn: "src/scripts/git-commit.js",
   fileOut: "bin/git-commit",
-  processors: [(t) => `#!/usr/bin/env node\n${t}`],
+  processors: [uglifyJs, (t) => `#!/usr/bin/env node\n${t}`],
 });

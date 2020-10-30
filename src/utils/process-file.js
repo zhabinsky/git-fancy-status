@@ -1,12 +1,14 @@
 const fs = require("fs");
 
-const processFile = ({ fileIn, fileOut, processors }) => {
+const processFile = async ({ fileIn, fileOut, processors }) => {
   let fileContent = fs.readFileSync(fileIn, {
     encoding: "utf8",
   });
-  processors.forEach((processor) => {
-    fileContent = processor(fileContent);
-  });
+
+  for (let i = 0; i < processors.length; i++) {
+    const processor = processors[i];
+    fileContent = await processor(fileContent);
+  }
   fs.writeFileSync(fileOut, fileContent);
 };
 

@@ -66,7 +66,13 @@ const getEmojiFromText = (text = "") => {
   return "";
 };
 
-const message = process.argv.splice(2).join(" ");
+const getUserProvidedMessage = () => {
+  const text = process.argv.splice(2).join(" ").trim();
+  if (text.length === 0) return "🔨 commit without message";
+  return text;
+};
+
+const message = getUserProvidedMessage();
 const emoji = getEmojiFromText(message);
 const ticket = getTicketNameFromText(branch);
 const commitMessage = `${ticket}${emoji}${message}`.replace(/"/g, '\\"');

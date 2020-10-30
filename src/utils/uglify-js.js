@@ -1,5 +1,6 @@
-const { minify } = require("uglify-js");
+const Terser = require("terser");
 
-module.exports = (text) => {
-  return minify(text).code;
+module.exports = async (text) => {
+  const result = await Terser.minify(text);
+  return result.code;
 };

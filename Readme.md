@@ -3,7 +3,7 @@
 ### Install
 
 ```
-$ sudo npm install -g git-fancy-status
+$ npm install -g git-fancy-status
 ```
 
 ### Usage

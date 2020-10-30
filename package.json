@@ -1,6 +1,6 @@
 {
   "name": "git-fancy-status",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Get more information about your git repository.",
   "main": "bundle.js",
   "scripts": {
@@ -32,12 +32,10 @@
   },
   "homepage": "https://github.com/zhabinsky/git-fancy-status#readme",
   "devDependencies": {
-    "bash-minifier": "^0.1.3"
+    "bash-minifier": "^0.1.3",
+    "terser": "^5.3.8"
   },
   "dependencies": {
-    "i": "^0.3.6",
-    "npm": "^6.14.8",
-    "shelljs": "^0.8.4",
-    "uglify-js": "^3.11.4"
+    "shelljs": "^0.8.4"
   }
 }
