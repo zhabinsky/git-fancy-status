@@ -61,7 +61,7 @@ const getEmojiFromText = (text = "") => {
     const word = words[i];
     const emoji = wordToEmojiMap[word];
     if (emoji) {
-      return emoji + "  ";
+      return emoji + " ";
     }
   }
   return "";
