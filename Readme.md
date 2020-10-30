@@ -1,21 +1,15 @@
 # git-fancy-status
 
 ### Install
+
 ```
 $ sudo npm install -g git-fancy-status
 ```
 
 ### Usage
 
-```
-# Just type gs in your terminal:
+#### Git Status
 
-$ gs
-```
-
-
-### Behaviour
-- Git directory
 ```
 $ gs
 
@@ -29,7 +23,7 @@ $ gs
 🔥  Commits               : 5 (Mine: ~80.0% 4)
 📌  Branch                : master (Total: 2)
 🛳️  HEAD is:              : 0 Commits away from origin/master
-👌  Status... 
+👌  Status...
 
  D bin/git-status.sh
  D index.js
@@ -37,15 +31,14 @@ $ gs
 ?? bin/git-status
 ?? bundle.js
 ```
-- Not Git directory
+
+#### Git Commit
+
 ```
-$ gs
+$ gc delete logs
 
+* master
+[master 0379ab6] 🕊 delete logs
+ 1 file changed, 2 deletions(-)
 
-⭕  Error           : No .git repo found.
-📂  Path            : ~
-❓  Git repos       :
-
-	./project1
-	./project2
 ```
