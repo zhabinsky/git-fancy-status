@@ -1,63 +1,59 @@
-const shell = require("shelljs");
-const run = (cmd) => shell.exec(cmd).output;
+const { execSync } = require("child_process");
 
-if (!shell.which("git")) {
-  shell.echo("Sorry, this script requires git");
-  shell.exit(1);
-}
-
-const branch = run("git branch --show-current");
-
-const jira_matcher = /\d+-[A-Z]+(?!-?[a-zA-Z]{1,10})/g;
-const getTicketNameFromText = (text) => {
-  const reverse = (a = "") => [...a].reverse().join("");
-  const matches = reverse(text).match(jira_matcher) || [];
-  if (matches.length === 0) {
-    return "";
-  }
-
-  const tickets = matches.map(reverse);
-  return tickets[0] + ": ";
-};
-
-const wordToEmojiMap = {
+const MAP_EMOJI = {
   add: "💪",
-  include: "💪",
-  introduce: "💪",
   alert: "🛎",
   attach: "🖇",
+  bring: "👌",
+  cancel: "❌",
   change: "🧬",
-  tweak: "🧬",
   complete: "✅",
-  completes: "✅",
   coverage: "☂",
   delete: "🕊",
+  deliver: "🤝",
+  deploy: "✅",
+  destroy: "❌",
   extend: "💪",
   fix: "🔧",
+  forbid: "❗",
   implement: "💪",
   improve: "🎉",
+  include: "💪",
+  introduce: "💪",
+  kill: "❌",
+  limit: "❗",
   merge: "♻️",
   modify: "🔨",
   pass: "✅",
-  passes: "✅",
+  prepare: "🔧",
   refactor: "🔨",
+  release: "🎂",
   remove: "🕊",
   rename: "🖊",
+  restrain: "❗",
   return: "💪",
   revert: "❌",
-  cancel: "❌",
-  forbid: "❗",
-  restrain: "❗",
-  limit: "❗",
   show: "👁",
   test: "🥽",
+  tweak: "🧬",
   update: "👌",
   use: "🤝",
-  deliver: "🤝",
-  release: "🎂",
-  bring: "👌",
-  return: "🧬",
-  revert: "🧬",
+};
+
+const getTicketNameFromBranch = () => {
+  const jira_matcher = /\d+-[A-Z]+(?!-?[a-zA-Z]{1,10})/g;
+  const branchName = execSync("git branch --show-current").toString();
+  const reverse = (a = "") => [...a].reverse().join("");
+  const matches = reverse(branchName).match(jira_matcher) || [];
+  const [ticket] = matches.map(reverse);
+  if (ticket) return ticket + ": ";
+  return "";
+};
+
+const getUserProvidedMessage = () => {
+  const text = process.argv.splice(2).join(" ").trim();
+  if (text.length === 0) return "🔨 commit without message";
+  return text || "";
 };
 
 const getEmojiFromText = (text = "") => {
@@ -65,24 +61,23 @@ const getEmojiFromText = (text = "") => {
   const wordEndings = ["", "s", "es", "ed", "d"];
   for (let i = 0; i < words.length; i++) {
     for (let j = 0; j < wordEndings.length; j++) {
-      const emoji = wordToEmojiMap[words[i] + wordEndings[j]];
-      if (emoji) return emoji;
+      const emoji = MAP_EMOJI[words[i] + wordEndings[j]];
+      if (emoji) return emoji + " ";
     }
   }
   return "";
 };
 
-const getUserProvidedMessage = () => {
-  const text = process.argv.splice(2).join(" ").trim();
-  if (text.length === 0) return "🔨 commit without message";
-  return text;
+const execCommit = () => {
+  const text = getUserProvidedMessage();
+  const emoji = getEmojiFromText(text);
+  const ticket = getTicketNameFromBranch();
+  const commitMessage = `${ticket}${emoji}${text}`.replace(/"/g, '\\"');
+  try {
+    return execSync(`git commit -m "${commitMessage}"`).toString();
+  } catch (e) {
+    return e.stdout.toString();
+  }
 };
 
-const message = getUserProvidedMessage();
-const emoji = getEmojiFromText(message);
-const ticket = getTicketNameFromText(branch);
-const commitMessage = `${ticket}${emoji}${message}`.replace(/"/g, '\\"');
-
-run(`git commit -m "${commitMessage}"`);
-
-// console.log(commitMessage);
+console.log(execCommit());
